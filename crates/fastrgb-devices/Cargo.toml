@@ -1,0 +1,13 @@
+[package]
+name = "fastrgb-devices"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+serde.workspace = true
+fastrgb-core = { path = "../fastrgb-core" }
+thiserror.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,74 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/fastrgb-core",
+    "crates/fastrgb-effects",
+    "crates/fastrgb-capture",
+    "crates/fastrgb-devices",
+    "crates/fastrgb-hardware",
+    "crates/fastrgb-app",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["FastRGB Rust Port Contributors"]
+
+[workspace.dependencies]
+anyhow = "1.0"
+gpui = "0.2.2"
+image = "0.25"
+parking_lot = "0.12"
+raw-window-handle = "0.6"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+smallvec = "1.15"
+thiserror = "2.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+windows-capture = "2.0.1"
+
+[workspace.dependencies.windows]
+version = "0.62.2"
+features = [
+    "Win32_Devices_DeviceAndDriverInstallation",
+    "Win32_Devices_HumanInterfaceDevice",
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_Storage_Xps",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_IO",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+]
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "warn"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+unwrap_used = "warn"
+expect_used = "warn"
+panic = "warn"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.dev.package.fastrgb-core]
+opt-level = 3
+
+[profile.dev.package.fastrgb-effects]
+opt-level = 3
+
+[profile.dev.package.image]
+opt-level = 3

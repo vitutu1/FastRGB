@@ -1,0 +1,8 @@
+/target
+/installer/staging
+/installer/*.msi
+*.wixpdb
+*.log
+*.pdb
+.DS_Store
+Thumbs.db

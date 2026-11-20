@@ -1,0 +1,84 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+    Name="FastRGB"
+    Manufacturer="FastRGB"
+    Version="1.0.1.0"
+    UpgradeCode="8A6B9C4E-31D2-4F7A-9B0C-71E24F5A8D10"
+    Scope="perMachine">
+
+    <!-- Removes ALL prior installations (including duplicate 1.0.0.0 installs or same-version rebuilds)
+         before laying down the fresh fastrgb.exe files. -->
+    <MajorUpgrade
+      AllowSameVersionUpgrades="yes"
+      Schedule="afterInstallInitialize"
+      DowngradeErrorMessage="A newer version of FastRGB is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="FastRgbIcon.ico" SourceFile="staging\fastrgb.ico" />
+    <Property Id="ARPPRODUCTICON" Value="FastRgbIcon.ico" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="FastRGB" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="FastRGB">
+        <Component Id="StartMenuShortcut" Guid="E4C7D81A-2B55-4A31-98E2-31A49F6C72D8">
+          <Shortcut
+            Id="ApplicationStartMenuShortcut"
+            Name="FastRGB"
+            Description="FastRGB — Native Obsidian RGB Studio"
+            Target="[INSTALLFOLDER]fastrgb.exe"
+            WorkingDirectory="INSTALLFOLDER"
+            Icon="FastRgbIcon.ico" />
+          <RemoveFolder Id="CleanUpShortCut" On="uninstall" />
+          <RegistryValue
+            Root="HKCU"
+            Key="Software\FastRGB"
+            Name="installed"
+            Type="integer"
+            Value="1"
+            KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="F8B1E93C-6A12-4F88-8D33-72C51A9E44F1">
+        <Shortcut
+          Id="ApplicationDesktopShortcut"
+          Name="FastRGB"
+          Description="FastRGB — Native Obsidian RGB Studio"
+          Target="[INSTALLFOLDER]fastrgb.exe"
+          WorkingDirectory="INSTALLFOLDER"
+          Icon="FastRgbIcon.ico" />
+        <RegistryValue
+          Root="HKCU"
+          Key="Software\FastRGB"
+          Name="desktop_shortcut"
+          Type="integer"
+          Value="1"
+          KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <Feature Id="MainApplication" Title="FastRGB" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+    </Feature>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="B5D3A21E-9C41-4E6B-8A11-5C9F702E31A4">
+        <File Id="FastRgbExe" Source="staging\fastrgb.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="AppIconFile" Guid="C1F8B72D-44E0-4B12-A95C-62D41E8A73B5">
+        <File Id="FastRgbIco" Source="staging\fastrgb.ico" KeyPath="yes" />
+      </Component>
+      <Component Id="InpOutDll" Guid="D9A2E51F-78C3-4D44-B10E-94F53A2B61C6">
+        <File Id="InpOutX64Dll" Source="staging\inpoutx64.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Package>
+</Wix>

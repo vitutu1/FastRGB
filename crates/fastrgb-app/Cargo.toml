@@ -1,0 +1,33 @@
+[package]
+name = "fastrgb-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+default-run = "fastrgb"
+build = "build.rs"
+
+[[bin]]
+name = "fastrgb"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+gpui.workspace = true
+image.workspace = true
+raw-window-handle.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+fastrgb-capture = { path = "../fastrgb-capture" }
+fastrgb-core = { path = "../fastrgb-core" }
+fastrgb-devices = { path = "../fastrgb-devices" }
+fastrgb-effects = { path = "../fastrgb-effects" }
+fastrgb-hardware = { path = "../fastrgb-hardware" }
+smallvec.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows.workspace = true
+
+[lints]
+workspace = true
